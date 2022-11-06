@@ -36,6 +36,7 @@ const thead = document.createElement("thead");
 thead.style.height = "auto"
 thead.className="table table-dark"
 const tbody= document.createElement("tbody");
+tbody.id ="tbody"
 const theadrow = document.createElement("tr");
 const headFields = ['No.','BookName','ISBN','Number of Pages','Authors','Publisher Name','Released Date','Lead Charecters']
 var i = 0
@@ -326,7 +327,7 @@ function sortTable(n) {
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("myInput");
     filter = input.value.toUpperCase();
-    table = document.getElementById("myTable2");
+    table = document.getElementById("tbody");
     tr = table.getElementsByTagName("tr");
     for (i = 0; i < tr.length; i++) {
       td = tr[i].getElementsByTagName("td")[1];
