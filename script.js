@@ -1,3 +1,4 @@
+window.alert('sort the values by clicking on the header columns')
 var globalData = []
 var currentidx = 0
 var maxInd = 0
@@ -21,6 +22,7 @@ headDiv.append(heading);
 console.log(headDiv)
 
 const table = document.createElement("table");
+table.id = "myTable2"
 table.className = "table table-hover mt-3"
 const thead = document.createElement("thead");
 thead.style.height = "auto"
@@ -28,9 +30,13 @@ thead.className="table table-dark"
 const tbody= document.createElement("tbody");
 const theadrow = document.createElement("tr");
 const headFields = ['No.','BookName','ISBN','Number of Pages','Authors','Publisher Name','Released Date','Lead Charecters']
+var i = 0
 headFields.map((element)=>{
     const tdata = document.createElement("td");
+    tdata.setAttribute('onclick',`sortTable(${i})`)
     tdata.innerText = element;
+    tdata.id = element
+    i += 1
     theadrow.appendChild(tdata)
 })
 thead.style.padding = "100px"
@@ -77,15 +83,10 @@ const createElements = (info,type) =>{
     element.innerText = info
     return element
 }
-
-//this div is used when the resolution when Width is < 780
 const divSmall = createElements('','div');
 divSmall.className = "row container mt-4"
 divSmall.style.height = "auto";
 divSmall.style.display = "flex"
-
-
-
 const fun1 = async() =>{
     const response = await fetch(`https://www.anapioficeandfire.com/api/books`)
     const books = await response.json()
@@ -256,3 +257,56 @@ const functionName=()=>{
 }
 
 window.addEventListener('resize', functionName);
+
+
+function sortTable(n) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById("myTable2");
+    switching = true;
+    dir = "asc";
+    while (switching) {
+      switching = false;
+      rows = table.rows;
+      for (i = 1; i < (rows.length - 1); i++) {
+        shouldSwitch = false;
+        x = rows[i].getElementsByTagName("TD")[n];
+        y = rows[i + 1].getElementsByTagName("TD")[n];
+        if(n==3){
+            if (dir == "asc") {
+                if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
+                  shouldSwitch = true;
+                  break;
+                }
+              } else if (dir == "desc") {
+                if (parseInt(x.innerHTML) < parseInt(y.innerHTML)) {
+                  shouldSwitch = true;
+                  break;
+                }
+              }
+        }
+        else{
+        if (dir == "asc") {
+          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+            shouldSwitch = true;
+            break;
+          }
+        } else if (dir == "desc") {
+          if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+            shouldSwitch = true;
+            break;
+          }
+        }
+    }
+      }
+      if (shouldSwitch) {
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+        switchcount ++;
+      } else {
+        if (switchcount == 0 && dir == "asc") {
+          dir = "desc";
+          switching = true;
+        }
+      }
+    }
+  }
