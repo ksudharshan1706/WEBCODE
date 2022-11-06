@@ -256,11 +256,13 @@ const functionName=()=>{
         table.style.display = "none";
         btnsDiv.style.display = "none"
         divSmall.style.display ="block"
+        inputTag.style.display = "none"
     }     
     else{
         divSmall.style.display ="none"
         table.style.display = "block";
         btnsDiv.style.display = "block"
+        inputTag.style.display = "block"
     }  
 }
 
