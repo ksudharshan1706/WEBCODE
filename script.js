@@ -20,6 +20,14 @@ heading.style.width = "vw"
 
 headDiv.append(heading);
 console.log(headDiv)
+const inputTag = document.createElement("input");
+inputTag.type = "text"
+inputTag.id = "myInput"
+inputTag.placeholder = "Search for BookName.."
+inputTag.title = "Type in a Book"
+inputTag.className = "form-control mt-3"
+inputTag.setAttribute('onkeyup',"SearchForBook()")
+// mainDiv.append(inputTag)
 
 const table = document.createElement("table");
 table.id = "myTable2"
@@ -73,7 +81,7 @@ btns.forEach((btn)=>{
 table.style.justifyContent="center"
 table.style.textAlign = "center"
 table.style.border = "2px solid"
-mainDiv.append(headDiv,table,btnsDiv)
+mainDiv.append(headDiv,inputTag,table,btnsDiv)
 mainDiv.style.textAlign ="center"
 document.body.append(mainDiv)
 
@@ -308,5 +316,26 @@ function sortTable(n) {
           switching = true;
         }
       }
+    }
+  }
+
+
+  function SearchForBook() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable2");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[1];
+      console.log(td,filter )
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }       
     }
   }
