@@ -96,7 +96,7 @@ const divSmall = createElements('','div');
 divSmall.className = "row container mt-4"
 divSmall.style.height = "auto";
 divSmall.style.display = "flex"
-const fun1 = async() =>{
+const intialTrigger = async() =>{
     const response = await fetch(`https://www.anapioficeandfire.com/api/books`)
     const books = await response.json()
     globalData = books
@@ -160,7 +160,7 @@ const fun1 = async() =>{
     })  
     
 }
-fun1()
+intialTrigger()
 
 const funnext = ()=> {
     
@@ -331,7 +331,6 @@ function sortTable(n) {
     tr = table.getElementsByTagName("tr");
     for (i = 0; i < tr.length; i++) {
       td = tr[i].getElementsByTagName("td")[1];
-      console.log(td,filter )
       if (td) {
         txtValue = td.textContent || td.innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
